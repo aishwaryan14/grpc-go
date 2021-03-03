@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package compute;
+option go_package="protofiles;computepb";
+
+//MinMaxSum request and response 
+message MinMaxRequest{
+    int32 Number = 1;
+}
+
+message MinMaxResponse{
+    int32 minimum = 1;
+    int32 maximum = 2;
+}
+
+//Fibonacci Series request and response
+message FibonacciRequest{
+    int32 n = 1;
+}
+
+message FibonacciResponse{
+    int32 fib = 1;
+}
+
+//Encryption request and response
+message EncryptionRequest{
+    string pt = 1;
+}
+
+message EncryptionResponse{
+    string ct = 1;
+}
+
+
+//Service for unary, client streaming and server streaming rpc calls
+service ComputeService{
+    //Unary RPC
+    rpc Encrypt (EncryptionRequest) returns (EncryptionResponse){};
+    //Client Streaming
+    rpc  MinMaxSum (stream MinMaxRequest) returns (MinMaxResponse){};
+    //Server Streaming
+    rpc Fibonacci (FibonacciRequest) returns (stream FibonacciResponse){};
+}
